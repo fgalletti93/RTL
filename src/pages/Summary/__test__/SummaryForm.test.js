@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import SummaryForm from "../SummaryForm.jsx";
+import "@testing-library/jest-dom";
+import SummaryForm from "../SummaryForm";
 
 test("Should check checkbox enables and disabled button", () => {
   render(<SummaryForm />);
