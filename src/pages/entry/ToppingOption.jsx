@@ -21,7 +21,6 @@ export default function ToppingOption({ name, imagePath, updateItemCount }) {
           />
         </Col>
       </Form.Group>
-      ;
     </Col>
   );
 }

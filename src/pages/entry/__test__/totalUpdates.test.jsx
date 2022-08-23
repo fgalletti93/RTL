@@ -1,10 +1,9 @@
-import { render, screen } from "@testing-library/react";
+import {render, screen } from '../../../test-utils/testing-library-utils'
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 import Options from "../Options";
-import { OrderDetailsProvider } from "../../../context/OrderDetails";
 
 const server = setupServer(
   rest.get("http://localhost:3030/scoops", (req, res, ctx) => {
@@ -33,7 +32,7 @@ afterEach(() => server.resetHandlers());
 afterAll(() => server.close());
 
 test("update scoop subtotal when scoops change", async () => {
-  render(<Options optionType="scoops" />, { wrapper: OrderDetailsProvider });
+  render(<Options optionType="scoops" />);
 
   const scoopSubtotal = screen.getByText("Scoops total: $", { exact: false });
   expect(scoopSubtotal).toHaveTextContent("0.00");

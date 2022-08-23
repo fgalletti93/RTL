@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import {render, screen, waitFor } from '../../../test-utils/testing-library-utils'
 import "@testing-library/jest-dom";
 import { rest } from "msw";
 import { setupServer } from "msw/node";
