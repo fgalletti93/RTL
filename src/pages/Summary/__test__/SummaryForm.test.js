@@ -1,10 +1,10 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "../../../test-utils/testing-library-utils";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import SummaryForm from "../SummaryForm";
 
 test("Should check checkbox enables and disabled button", () => {
-  render(<SummaryForm />);
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
   const checkbox = screen.getByRole("checkbox", {
     name: /i agree to terms and conditions/i,
   });
@@ -15,7 +15,7 @@ test("Should check checkbox enables and disabled button", () => {
 });
 
 test("Enables button on first click and disables on second", () => {
-  render(<SummaryForm />);
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
   const checkbox = screen.getByRole("checkbox", {
     name: /i agree to terms and conditions/i,
   });
@@ -28,8 +28,8 @@ test("Enables button on first click and disables on second", () => {
   expect(button).toBeDisabled();
 });
 
-test("popover responds to hover", () => {
-  render(<SummaryForm />);
+test("popover responds to hover", async () => {
+  render(<SummaryForm setOrderPhase={jest.fn()} />);
   const nullPopover = screen.queryByText(
     /no ice cream will actually be delivered/i
   );
@@ -38,9 +38,13 @@ test("popover responds to hover", () => {
   const termsAndConditions = screen.getByText(/terms and conditions/i);
   userEvent.hover(termsAndConditions);
 
-  const popover = screen.getByText(/no ice cream will actually be delivered/i);
+  const popover = screen.queryByText(
+    /no ice cream will actually be delivered/i
+  );
   expect(popover).toBeInTheDocument();
-
   userEvent.unhover(termsAndConditions);
-  expect(nullPopover).not.toBeInTheDocument();
+
+  await waitFor(() => {
+    expect(nullPopover).not.toBeInTheDocument();
+  });
 });

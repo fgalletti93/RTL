@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 import Popover from "react-bootstrap/Popover";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 
-const Sundae = () => {
+const Sundae = ({ setOrderPhase }) => {
   const [tcChecked, setTcChecked] = useState(false);
 
   const popover = (
@@ -33,7 +33,7 @@ const Sundae = () => {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" disabled={!tcChecked}>
+      <Button variant="primary" disabled={!tcChecked} onClick={() => setOrderPhase('completed')}>
         Confirm order
       </Button>
     </Form>
